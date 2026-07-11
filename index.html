@@ -305,22 +305,96 @@
 </div>
 
 <!-- ============================================================
-     PHOTOS PAGE
-     TO ADD A PHOTO: replace <div class="photo-placeholder">Add a photo</div> with:
-       <img src="images/photo.jpg" class="photo-img" alt="Caption">
-     ============================================================ -->
-<div id="page-photos" class="page">
+   <div id="page-photos" class="page">
   <div class="page-header">
     <h2>Photos</h2>
-    <p class="sub">Places, moments, things I wanted to remember.</p>
+    <p class="sub">Places, moments, memories recently.</p>
   </div>
-  <p class="photos-note">Coming soon.</p>
+
   <div class="photo-grid">
-    <div class="photo-placeholder">Add a photo</div>
-    <div class="photo-placeholder">Add a photo</div>
-    <div class="photo-placeholder">Add a photo</div>
-    <div class="photo-placeholder">Add a photo</div>
+
+    <!-- PHOTO 1 — replace src and caption -->
+    <div class="photo-card" onclick="openLightbox(0)">
+      <img src="images/photo1.jpg" alt="Photo 1">
+      <div class="caption-overlay">Your caption here</div>
+    </div>
+
+    <!-- PHOTO 2 -->
+    <div class="photo-card" onclick="openLightbox(1)">
+      <img src="images/photo2.jpg" alt="Photo 2">
+      <div class="caption-overlay">Your caption here</div>
+    </div>
+
+    <!-- PHOTO 3 -->
+    <div class="photo-card" onclick="openLightbox(2)">
+      <img src="images/photo3.jpg" alt="Photo 3">
+      <div class="caption-overlay">Your caption here</div>
+    </div>
+
+    <!-- PHOTO 4 -->
+    <div class="photo-card" onclick="openLightbox(3)">
+      <img src="images/photo4.jpg" alt="Photo 4">
+      <div class="caption-overlay">Your caption here</div>
+    </div>
+
+    <!-- PHOTO 5 -->
+    <div class="photo-card" onclick="openLightbox(4)">
+      <img src="images/photo5.jpg" alt="Photo 5">
+      <div class="caption-overlay">Your caption here</div>
+    </div>
+
+    <!-- PHOTO 6 -->
+    <div class="photo-card" onclick="openLightbox(5)">
+      <img src="images/photo6.jpg" alt="Photo 6">
+      <div class="caption-overlay">Your caption here</div>
+    </div>
+
+    <!-- PHOTO 7 -->
+    <div class="photo-card" onclick="openLightbox(6)">
+      <img src="images/photo7.jpg" alt="Photo 7">
+      <div class="caption-overlay">Your caption here</div>
+    </div>
+
+    <!-- PHOTO 8 -->
+    <div class="photo-card" onclick="openLightbox(7)">
+      <img src="images/photo8.jpg" alt="Photo 8">
+      <div class="caption-overlay">Your caption here</div>
+    </div>
+
+    <!-- PHOTO 9 -->
+    <div class="photo-card" onclick="openLightbox(8)">
+      <img src="images/photo9.jpg" alt="Photo 9">
+      <div class="caption-overlay">Your caption here</div>
+    </div>
+
+    <!-- PHOTO 10 -->
+    <div class="photo-card" onclick="openLightbox(9)">
+      <img src="images/photo10.jpg" alt="Photo 10">
+      <div class="caption-overlay">Your caption here</div>
+    </div>
+
+    <!-- PHOTO 11 -->
+    <div class="photo-card" onclick="openLightbox(10)">
+      <img src="images/photo11.jpg" alt="Photo 11">
+      <div class="caption-overlay">Your caption here</div>
+    </div>
+
+    <!-- PHOTO 12 -->
+    <div class="photo-card" onclick="openLightbox(11)">
+      <img src="images/photo12.jpg" alt="Photo 12">
+      <div class="caption-overlay">Your caption here</div>
+    </div>
+
   </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-nav prev" onclick="changePhoto(-1)">&#8592;</button>
+  <button class="lightbox-nav next" onclick="changePhoto(1)">&#8594;</button>
+  <img id="lightboxImg" src="" alt="">
+  <p class="lightbox-caption" id="lightboxCaption"></p>
 </div>
 
 <!-- ============================================================
