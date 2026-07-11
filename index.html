@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Araf Reshad</title>
+  <meta name="description" content="Araf Reshad — researcher, student, and speaker from Waterloo, Canada.">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #F5F5F2;
+      --ink: #0D0D0D;
+      --muted: #555550;
+      --accent: #1A3D2B;
+      --accent-mid: #2A5C40;
+      --accent-light: rgba(26,61,43,0.08);
+      --accent-border: rgba(26,61,43,0.25);
+      --border: rgba(13,13,13,0.1);
+      --sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    body { background: var(--cream); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.7; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 10; background: var(--cream); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 54px; }
+    .nav-name { font-family: var(--sans); font-size: 15px; font-weight: 500; color: var(--ink); cursor: pointer; text-decoration: none; transition: color 0.15s; }
+    .nav-name:hover { color: var(--accent); }
+    .nav-links { display: flex; list-style: none; }
+    .nav-links li a { font-size: 11px; font-weight: 400; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 6px 11px; border-radius: 4px; transition: color 0.15s; }
+    .nav-links li a:hover, .nav-links li a.active { color: var(--accent); }
+
+    /* PAGES */
+    .page { display: none; max-width: 680px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .page.active { display: block; }
+
+    /* HOME */
+    .home-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; }
+    h1 { font-size: 52px; font-weight: 300; line-height: 1.0; letter-spacing: -0.02em; margin-bottom: 2rem; color: var(--ink); }
+    h1 strong { font-weight: 500; color: var(--ink); }
+    .home-intro { font-size: 16px; line-height: 1.8; color: #2A2A27; margin-bottom: 1.75rem; max-width: 580px; font-weight: 300; }
+    .currently-label { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+    .currently-list { list-style: none; margin-bottom: 1.5rem; }
+    .currently-list li { padding: 0.28rem 0; font-size: 14px; line-height: 1.7; color: #2A2A27; display: flex; gap: 10px; align-items: flex-start; font-weight: 300; }
+    .currently-list li .bullet { font-size: 12px; color: var(--accent); margin-top: 4px; flex-shrink: 0; font-weight: 600; }
+
+    /* Links */
+    .link-stub { color: var(--accent); text-decoration: underline; text-decoration-color: rgba(26,61,43,0.4); text-underline-offset: 3px; cursor: pointer; font-weight: 400; }
+    /* TO ADD LINKS: replace <span class="link-stub">Text</span> with <a class="link-stub" href="https://url.com" target="_blank">Text</a> */
+    a { color: var(--accent); text-decoration: underline; text-decoration-color: rgba(26,61,43,0.35); text-underline-offset: 3px; }
+    a:hover { text-decoration-color: var(--accent); }
+
+    .home-footer-line { font-size: 15px; color: #2A2A27; line-height: 1.75; margin-bottom: 2.5rem; font-weight: 300; }
+    .section-divider { border: none; border-top: 1px solid var(--accent-border); margin: 2.5rem 0; }
+    .section-title { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; }
+
+    /* WRITING */
+    /* TO ADD A POST: copy one <li class="post-item"> block, paste above others (newest first), update title, date, and href */
+    .post-list { list-style: none; }
+    .post-item { padding: 1rem 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; cursor: pointer; transition: padding-left 0.15s; }
+    .post-item:first-child { border-top: 1px solid var(--border); }
+    .post-item:hover { padding-left: 6px; }
+    .post-item:hover .post-title { color: var(--accent); }
+    .post-title { font-size: 16px; font-weight: 400; color: var(--ink); transition: color 0.15s; }
+    .post-meta { font-size: 11px; color: var(--muted); white-space: nowrap; }
+
+    /* PROJECTS */
+    /* TO ADD A PROJECT: copy one .project-card block and paste inside .projects-grid */
+    /* TO ADD A THUMBNAIL: replace <div class="project-thumb">Add thumbnail</div> with:
+       <img src="images/your-image.jpg" style="width:100%;aspect-ratio:16/9;object-fit:cover;"> */
+    .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .project-card { background: #fff; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; transition: box-shadow 0.2s, transform 0.2s; }
+    .project-card:hover { box-shadow: 0 4px 20px rgba(26,61,43,0.1); transform: translateY(-2px); }
+    .project-thumb { width: 100%; aspect-ratio: 16/9; background: var(--accent-light); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--accent-border); font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+    .project-body { padding: 14px 16px 16px; }
+    .project-tag { font-size: 9px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-light); border: 1px solid var(--accent-border); border-radius: 3px; padding: 2px 7px; display: inline-block; margin-bottom: 7px; }
+    .project-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 5px; line-height: 1.35; }
+    .project-desc { font-size: 12px; color: var(--muted); line-height: 1.6; font-weight: 300; }
+
+    /* READING */
+    /* TO ADD A BOOK: copy one <li class="book-item"> into the right section */
+    .reading-section { margin-bottom: 2.25rem; }
+    .reading-section-label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--accent-border); }
+    .book-list { list-style: none; }
+    .book-item { padding: 0.5rem 0; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--ink); font-weight: 300; }
+    .book-author { font-size: 11px; color: var(--muted); white-space: nowrap; }
+
+    /* PHOTOS */
+    /* TO ADD A PHOTO: replace <div class="photo-placeholder">Add a photo</div> with:
+       <img src="images/photo.jpg" class="photo-img" alt="Caption"> */
+    .photos-note { font-size: 14px; color: var(--muted); margin-bottom: 2rem; font-weight: 300; }
+    .photo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .photo-placeholder { aspect-ratio: 4/3; background: var(--accent-light); border: 1px dashed var(--accent-border); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 11px; font-weight: 400; letter-spacing: 0.05em; }
+    .photo-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 6px; display: block; }
+
+    /* LINKS */
+    /* TO ADD A LINK: copy one <a class="link-row"> block and update href and label */
+    .links-group { margin-bottom: 2.5rem; }
+    .links-group-title { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .link-row { display: flex; align-items: center; gap: 10px; padding: 0.65rem 0; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--ink); font-size: 14px; font-weight: 300; transition: color 0.15s; }
+    .link-row:first-of-type { border-top: 1px solid var(--border); }
+    .link-row:hover { color: var(--accent); }
+    .link-row:hover .link-handle { color: var(--accent-mid); }
+    .link-row .link-handle { font-size: 11px; color: var(--muted); margin-left: auto; transition: color 0.15s; }
+
+    /* CONTACT */
+    .contact-intro { font-size: 15px; line-height: 1.8; margin-bottom: 2.5rem; color: #2A2A27; font-weight: 300; }
+    .contact-row { display: flex; align-items: center; gap: 12px; padding: 0.8rem 0; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--ink); font-weight: 300; }
+    .contact-row:first-of-type { border-top: 1px solid var(--border); }
+    .contact-label { font-size: 10px; font-weight: 600; color: var(--accent); width: 80px; flex-shrink: 0; letter-spacing: 0.07em; text-transform: uppercase; }
+
+    /* PAGE HEADERS */
+    .page-header { margin-bottom: 2.5rem; }
+    .page-header h2 { font-size: 32px; font-weight: 300; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 0.4rem; color: var(--ink); }
+    .page-header .sub { font-size: 13px; color: var(--muted); font-weight: 300; }
+    .placeholder-note { font-size: 11px; color: var(--muted); font-style: italic; margin-top: 1rem; font-weight: 300; }
+    .icon { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-name" onclick="showPage('home')" href="#">Araf Reshad</a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('writing')" id="nav-writing">Writing</a></li>
+    <li><a href="#" onclick="showPage('projects')" id="nav-projects">Projects</a></li>
+    <li><a href="#" onclick="showPage('reading')" id="nav-reading">Reading</a></li>
+    <li><a href="#" onclick="showPage('photos')" id="nav-photos">Photos</a></li>
+    <li><a href="#" onclick="showPage('links')" id="nav-links">Links</a></li>
+    <li><a href="#" onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ============================================================
+     HOME PAGE
+     ============================================================ -->
+<div id="page-home" class="page active">
+  <p class="home-eyebrow">Waterloo, ON</p>
+  <h1>Araf<br><strong>Reshad</strong></h1>
+  <div class="home-intro">
+    <p>I'm a researcher, student, and speaker from Waterloo, Canada. Currently a Health Sciences student @ Queen's University as a Chancellor's Scholar.</p>
+  </div>
+
+  <p class="currently-label">Recently, I am —</p>
+  <ul class="currently-list">
+    <li>
+      <span class="bullet">→</span>
+      <span>Conducting orthopaedic research @ <span class="link-stub">UAB School of Medicine</span> &amp; <span class="link-stub">Waterloo Health Network</span>. Fascinated by knee osteoarthritis and clinical research on musculoskeletal function.</span>
+    </li>
+    <li>
+      <span class="bullet">→</span>
+      <span>Building RAG models with a Google engineer to make emerging companies more sustainable.</span>
+    </li>
+    <li>
+      <span class="bullet">→</span>
+      <span>Fascinated by global health. In high school, I conducted sociology &amp; global health projects @ <span class="link-stub">Harvard</span>, <span class="link-stub">WHO</span>, Square Ltd., and the <span class="link-stub">New York Academy of Sciences</span>. Currently working with <span class="link-stub">Global Medical Brigades</span> to fundraise &amp; volunteer for underserved communities abroad (i.e. Ghana!).</span>
+    </li>
+    <li>
+      <span class="bullet">→</span>
+      <span>I love speaking &amp; connecting with others (s/o <span class="link-stub">Socratica</span>!). Spoken/presented @ <span class="link-stub">TEDx</span>, CASEM, HOSA, CUCOH &amp; local high schools + community events/podcasts.</span>
+    </li>
+  </ul>
+
+  <p class="home-footer-line">I love reading, stand-up comedy, travelling, soccer, and chess. Occasionally I write, and I thrive on saying yes to last-minute, spontaneous adventures.</p>
+
+  <hr class="section-divider">
+
+  <!-- WRITING PREVIEW — copy a <li> block to add posts, newest first -->
+  <p class="section-title">Recent writing</p>
+  <ul class="post-list">
+    <li class="post-item" onclick="showPage('writing')">
+      <span class="post-title">Your first essay title here</span>
+      <span class="post-meta">Jun 2026</span>
+    </li>
+    <li class="post-item" onclick="showPage('writing')">
+      <span class="post-title">Another thought or reflection</span>
+      <span class="post-meta">May 2026</span>
+    </li>
+  </ul>
+</div>
+
+<!-- ============================================================
+     WRITING PAGE
+     TO ADD A POST: copy one <li class="post-item"> and paste above others (newest first)
+     TO LINK TO AN ESSAY: change onclick="showPage('writing')" to onclick="window.location='essays/your-essay.html'"
+     ============================================================ -->
+<div id="page-writing" class="page">
+  <div class="page-header">
+    <h2>Writing</h2>
+    <p class="sub">Essays, reflections, and notes on things I'm thinking about.</p>
+  </div>
+  <ul class="post-list">
+    <li class="post-item"><span class="post-title">Your first essay title here</span><span class="post-meta">Jun 2026</span></li>
+    <li class="post-item"><span class="post-title">Thoughts on research at 19</span><span class="post-meta">May 2026</span></li>
+    <li class="post-item"><span class="post-title">What I learned from my first publication</span><span class="post-meta">Mar 2026</span></li>
+  </ul>
+  <p class="placeholder-note">↑ Placeholder posts — replace with your own.</p>
+</div>
+
+<!-- ============================================================
+     PROJECTS PAGE
+     TO ADD A PROJECT: copy one .project-card block
+     TO ADD A THUMBNAIL: replace <div class="project-thumb">Add thumbnail</div> with:
+       <img src="images/your-image.jpg" style="width:100%;aspect-ratio:16/9;object-fit:cover;">
+     ============================================================ -->
+<div id="page-projects" class="page">
+  <div class="page-header">
+    <h2>Projects</h2>
+    <p class="sub">Research, experiments, and things I've built.</p>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-thumb">Add thumbnail</div>
+      <div class="project-body">
+        <span class="project-tag">Published</span>
+        <p class="project-name">Bone Mineral Density &amp; PRP</p>
+        <p class="project-desc">First-author publication in Journal of Surgery and Research on bone mineral density outcomes.</p>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb">Add thumbnail</div>
+      <div class="project-body">
+        <span class="project-tag">Published</span>
+        <p class="project-name">fNIRS CNN-MLP Classifier</p>
+        <p class="project-desc">Deep learning pipeline for functional near-infrared spectroscopy data. Published in URNCST Journal.</p>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb">Add thumbnail</div>
+      <div class="project-body">
+        <span class="project-tag">ML</span>
+        <p class="project-name">Fetal SVM Imaging Model</p>
+        <p class="project-desc">Support vector machine classifier for fetal imaging. ~96.7% accuracy.</p>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb">Add thumbnail</div>
+      <div class="project-body">
+        <span class="project-tag">Internship</span>
+        <p class="project-name">ESG AI Agent (RAG Pipeline)</p>
+        <p class="project-desc">AI-powered ESG compliance agent using RAG. 62-document corpus with Playwright + Chroma.</p>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb">Add thumbnail</div>
+      <div class="project-body">
+        <span class="project-tag">In Progress</span>
+        <p class="project-name">Knee OA Scoping Review</p>
+        <p class="project-desc">Scoping review on PRP/MSC preparation protocol standardization for knee osteoarthritis.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================
+     READING PAGE
+     TO ADD A BOOK: copy one <li class="book-item"> into the right section
+     ============================================================ -->
+<div id="page-reading" class="page">
+  <div class="page-header">
+    <h2>Reading</h2>
+    <p class="sub">Books that have shaped how I think, feel, and see the world.</p>
+  </div>
+
+  <div class="reading-section">
+    <p class="reading-section-label">Currently reading</p>
+    <ul class="book-list">
+      <li class="book-item"><span>Add a book here</span><span class="book-author">Author</span></li>
+    </ul>
+  </div>
+
+  <div class="reading-section">
+    <p class="reading-section-label">Favourites</p>
+    <ul class="book-list">
+      <li class="book-item"><span>Add your favourites here</span><span class="book-author">—</span></li>
+    </ul>
+  </div>
+
+  <div class="reading-section">
+    <p class="reading-section-label">Values</p>
+    <ul class="book-list">
+      <li class="book-item"><span>Add books on values here</span><span class="book-author">—</span></li>
+    </ul>
+  </div>
+
+  <div class="reading-section">
+    <p class="reading-section-label">Stories</p>
+    <ul class="book-list">
+      <li class="book-item"><span>Add stories here</span><span class="book-author">—</span></li>
+    </ul>
+  </div>
+
+  <div class="reading-section">
+    <p class="reading-section-label">Business</p>
+    <ul class="book-list">
+      <li class="book-item"><span>Add business books here</span><span class="book-author">—</span></li>
+    </ul>
+  </div>
+
+  <p class="placeholder-note">↑ Swap in your actual reads.</p>
+</div>
+
+<!-- ============================================================
+     PHOTOS PAGE
+     TO ADD A PHOTO: replace <div class="photo-placeholder">Add a photo</div> with:
+       <img src="images/photo.jpg" class="photo-img" alt="Caption">
+     ============================================================ -->
+<div id="page-photos" class="page">
+  <div class="page-header">
+    <h2>Photos</h2>
+    <p class="sub">Places, moments, things I wanted to remember.</p>
+  </div>
+  <p class="photos-note">Coming soon.</p>
+  <div class="photo-grid">
+    <div class="photo-placeholder">Add a photo</div>
+    <div class="photo-placeholder">Add a photo</div>
+    <div class="photo-placeholder">Add a photo</div>
+    <div class="photo-placeholder">Add a photo</div>
+  </div>
+</div>
+
+<!-- ============================================================
+     LINKS PAGE
+     TO ADD A LINK: copy one <a class="link-row"> block, update href and label
+     UPDATE your real profile URLs below
+     ============================================================ -->
+<div id="page-links" class="page">
+  <div class="page-header">
+    <h2>Links</h2>
+    <p class="sub">Where to find me online and things worth reading.</p>
+  </div>
+  <div class="links-group">
+    <p class="links-group-title">Profiles</p>
+    <a class="link-row" href="https://linkedin.com/in/arafreshad" target="_blank">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn <span class="link-handle">linkedin.com/in/arafreshad</span>
+    </a>
+    <a class="link-row" href="https://instagram.com/arafreshad" target="_blank">
+      <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      Instagram <span class="link-handle">@arafreshad</span>
+    </a>
+    <a class="link-row" href="https://researchgate.net" target="_blank">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      ResearchGate <span class="link-handle">ResearchGate profile</span>
+    </a>
+    <a class="link-row" href="https://arafreshad.substack.com" target="_blank">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M22 6H2v3h20V6zM2 10v8l10-4 10 4v-8H2z"/></svg>
+      Substack <span class="link-handle">arafreshad.substack.com</span>
+    </a>
+  </div>
+  <div class="links-group">
+    <p class="links-group-title">Things I like</p>
+    <a class="link-row" href="https://paulgraham.com" target="_blank">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Paul Graham's essays
+    </a>
+    <a class="link-row" href="#" target="_blank">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      Add a link here
+    </a>
+  </div>
+</div>
+
+<!-- ============================================================
+     CONTACT PAGE
+     Update your email address below
+     ============================================================ -->
+<div id="page-contact" class="page">
+  <div class="page-header"><h2>Contact</h2></div>
+  <p class="contact-intro">I'm always happy to hear from researchers, collaborators, or anyone with an interesting idea. Reach out — I'll try to reply.</p>
+  <div>
+    <div class="contact-row">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <span class="contact-label">Email</span><span>your@email.com</span>
+    </div>
+    <div class="contact-row">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      <span class="contact-label">LinkedIn</span><span>linkedin.com/in/arafreshad</span>
+    </div>
+    <div class="contact-row">
+      <svg class="icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <span class="contact-label">Based in</span><span>Kingston, ON (Waterloo in summers)</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    const pg = document.getElementById('page-' + id);
+    if (pg) pg.classList.add('active');
+    const nav = document.getElementById('nav-' + id);
+    if (nav) nav.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll('.nav-links a, .nav-name').forEach(a => a.addEventListener('click', e => e.preventDefault()));
+</script>
+
+</body>
+</html>
